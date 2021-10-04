@@ -2,8 +2,9 @@ const express = require('express');
 const routes = require('./routes');
 const path = require('path');
 const mongoose = require('mongoose');
+const User = require('./models/User');
 
-const templateInit = require('../config/handlebars');
+const templateInit = require('./config/handlebars');
 const app = express();
 
 templateInit(app);
@@ -20,8 +21,7 @@ mongoose
       5000,
       console.log.bind(console, 'Server working on port 5000....')
     );
-
-    
+    User.create({ username: 'Ivan', password: '123456' });
   })
   .catch((err) => {
     console.log(err);
