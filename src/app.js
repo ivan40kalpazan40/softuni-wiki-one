@@ -1,6 +1,8 @@
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
+const mongoose = require('mongoose');
+
 const templateInit = require('../config/handlebars');
 const app = express();
 
@@ -9,4 +11,18 @@ templateInit(app);
 app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(routes);
 
-app.listen(5000, console.log.bind(console, 'Server working on port 5000....'));
+mongoose
+  .connect('mongodb://localhost:27017/articles')
+  .then((result) => {
+    console.log('DB CONNECT');
+    console.log(mongoose.connection);
+    app.listen(
+      5000,
+      console.log.bind(console, 'Server working on port 5000....')
+    );
+
+    
+  })
+  .catch((err) => {
+    console.log(err);
+  });
