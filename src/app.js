@@ -1,4 +1,5 @@
 const express = require('express');
+const routes = require('./routes');
 const path = require('path');
 
 const app = express();
@@ -9,8 +10,6 @@ app.use(express.static(path.resolve(__dirname, 'public')));
 app.set('views', path.resolve('./src/views'));
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
+app.use(routes);
 
 app.listen(5000, console.log.bind(console, 'Server working on port 5000....'));
