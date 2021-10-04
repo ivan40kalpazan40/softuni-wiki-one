@@ -2,6 +2,10 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
+
+// STATIC FOLDER SETUP
+app.use(express.static(path.resolve(__dirname, 'public')));
+// EJS VIEW ENGINE SETUP
 app.set('views', path.resolve('./src/views'));
 app.set('view engine', 'ejs');
 
