@@ -25,8 +25,16 @@ const createArticle = async (req, res) => {
   }
 };
 
+const renderArticle = async (req, res) => {
+  const articleId = req.params.id;
+  const article = await articleServices.getArticle(articleId);
+ // console.log(article.title);
+  res.render('articles/article', { article });
+};
+
 router.get('/', getArticles);
 router.get('/create', renderCreate);
 router.post('/create', createArticle);
+router.get('/article/:id', renderArticle);
 
 module.exports = router;
