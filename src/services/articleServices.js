@@ -19,11 +19,16 @@ const create = async (title, description) => {
   const article = await Article.create(title, description);
   return article;
 };
+const edit = async (id, description) => {
+  const article = await Article.findByIdAndUpdate(id, { description });
+  return article;
+};
 
 const articleServices = {
   getAll,
   getArticle,
   getAllLatest,
   create,
+  edit,
 };
 module.exports = articleServices;

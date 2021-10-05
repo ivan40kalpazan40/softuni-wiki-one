@@ -32,12 +32,23 @@ const renderArticle = async (req, res) => {
   res.render('articles/article', { article });
 };
 const renderEdit = async (req, res) => {
+  const articleId = req.params.id;
+  const article = await articleServices.getArticle(articleId);
   console.log('EDIT');
   try {
-    res.render('articles/edit');
+    res.render('articles/edit', { article });
   } catch (error) {
     res.send(error.message);
   }
+};
+
+const editArticle = async (req, res) => {
+  const articleId = req.params.id;
+  const description = req.body.description;
+  console.log(description);
+  const article = await articleServices.edit(articleId, description);
+  console.log(article);
+  res.redirect('/');
 };
 
 router.get('/', getArticles);
@@ -45,5 +56,6 @@ router.get('/create', renderCreate);
 router.post('/create', createArticle);
 router.get('/article/:id', renderArticle);
 router.get('/article/edit/:id', renderEdit);
+router.post('/article/edit/:id', editArticle);
 
 module.exports = router;
