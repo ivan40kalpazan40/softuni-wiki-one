@@ -28,13 +28,22 @@ const createArticle = async (req, res) => {
 const renderArticle = async (req, res) => {
   const articleId = req.params.id;
   const article = await articleServices.getArticle(articleId);
- // console.log(article.title);
+  // console.log(article.title);
   res.render('articles/article', { article });
+};
+const renderEdit = async (req, res) => {
+  console.log('EDIT');
+  try {
+    res.render('articles/edit');
+  } catch (error) {
+    res.send(error.message);
+  }
 };
 
 router.get('/', getArticles);
 router.get('/create', renderCreate);
 router.post('/create', createArticle);
 router.get('/article/:id', renderArticle);
+router.get('/article/edit/:id', renderEdit);
 
 module.exports = router;
