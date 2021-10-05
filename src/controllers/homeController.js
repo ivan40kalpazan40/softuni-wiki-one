@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const articleServices = require('../services/articleServices');
 
-router.get('/', (req, res) => {
-  res.render('index', { message: 'Hello i am dynamic message!' });
+router.get('/', async (req, res) => {
+  const articles = await articleServices.getAllLatest();
+  console.log(articles);
+  res.render('index', { articles });
 });
 
 module.exports = router;

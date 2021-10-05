@@ -21,6 +21,7 @@ mongoose
       5000,
       console.log.bind(console, 'Server working on port 5000....')
     );
+    Article.create({ title: 'NEW ONE', description: 'VERY GOOOD AND VERY NEW' });
   })
   .catch((err) => {
     console.log(err.reason);
