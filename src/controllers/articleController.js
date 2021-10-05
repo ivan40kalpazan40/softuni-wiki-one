@@ -12,7 +12,21 @@ const renderCreate = (req, res) => {
   res.render('articles/create');
 };
 
+const createArticle = async (req, res) => {
+  const { title, description } = req.body;
+  try {
+    const article = await articleServices.create({ title, description });
+    console.log('Article created');
+    console.log(article);
+    res.redirect('/');
+  } catch (error) {
+    console.log(error);
+    res.send(error.message);
+  }
+};
+
 router.get('/', getArticles);
 router.get('/create', renderCreate);
+router.post('/create', createArticle);
 
 module.exports = router;
