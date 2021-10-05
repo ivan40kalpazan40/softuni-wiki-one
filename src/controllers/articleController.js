@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const articleServices = require('../services/articleServices');
 
-const getArticles = (req, res) => {
-  res.render('articles/all-articles');
+const getArticles = async (req, res) => {
+  const articles = await articleServices.getAll();
+  console.log(articles);
+  res.render('articles/all-articles', { articles });
 };
 
 const renderCreate = (req, res) => {
