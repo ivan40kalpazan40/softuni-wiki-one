@@ -24,11 +24,17 @@ const edit = async (id, description) => {
   return article;
 };
 
+const remove = async (id) => {
+  const article = await Article.findByIdAndRemove(id);
+  return article;
+};
+
 const articleServices = {
   getAll,
   getArticle,
   getAllLatest,
   create,
   edit,
+  remove,
 };
 module.exports = articleServices;

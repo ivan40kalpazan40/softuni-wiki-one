@@ -51,11 +51,19 @@ const editArticle = async (req, res) => {
   res.redirect('/');
 };
 
+const deleteArticle = async (req, res) => {
+  const articleId = req.params.id;
+  const article = await articleServices.remove(articleId);
+  console.log('Article Deleted!');
+  res.redirect('/');
+};
+
 router.get('/', getArticles);
 router.get('/create', renderCreate);
 router.post('/create', createArticle);
 router.get('/article/:id', renderArticle);
 router.get('/article/edit/:id', renderEdit);
 router.post('/article/edit/:id', editArticle);
+router.get('/article/delete/:id', deleteArticle);
 
 module.exports = router;
