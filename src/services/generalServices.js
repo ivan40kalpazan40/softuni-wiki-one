@@ -6,7 +6,6 @@ const confirmPassword = (password, password2) => {
 
 const cryptPassword = (password) => {
   return bcrypt.hash(password, 10).then((hash) => {
-    console.log(`>>> ${hash}`);
     return hash;
   });
 };

@@ -12,14 +12,16 @@ const renderLogin = (req, res) => {
 const renderRegister = (req, res) => {
   res.render('user/register');
 };
-const registerUser = async (req, res) => {
+const registerUser = (req, res) => {
   const { username, password, password2 } = req.body;
   const isConfirmed = generalServices.confirmPassword(password, password2);
   if (isConfirmed) {
     userServices.getUser(username).then((user) => {
       const isExisting = Boolean(user);
       if (isExisting) {
-        throw new Error(`User ${user.username} already exists!`);
+        const error = new Error(`User ${user.username} already exists!`);
+        console.error(error.message);
+        return res.redirect('/user/register');
       }
       // REGISTER USER HERE
       generalServices
@@ -31,7 +33,7 @@ const registerUser = async (req, res) => {
               res.redirect('/');
             })
             .catch((err) => {
-              console.log(err.message);
+              console.log(`ERROR MESSAGE:: ${err.message}`);
               res.redirect('/user/register');
             });
         })
