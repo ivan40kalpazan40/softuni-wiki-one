@@ -3,6 +3,8 @@ const routes = require('./routes');
 const path = require('path');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const auth = require('./middleware/auth');
+const cookieParser = require('cookie-parser');
 const User = require('./models/User');
 const Article = require('./models/Article');
 
@@ -13,6 +15,9 @@ templateInit(app);
 app.use(express.urlencoded({ extended: false }));
 // STATIC FOLDER SETUP
 app.use(express.static(path.resolve(__dirname, 'public')));
+
+app.use(cookieParser());
+app.use(auth);
 app.use(routes);
 
 mongoose

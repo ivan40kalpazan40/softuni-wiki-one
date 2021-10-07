@@ -3,6 +3,7 @@ const authServices = require('../services/authServices');
 const generalServices = require('../services/generalServices');
 const userServices = require('../services/userServices');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 const renderLogin = (req, res) => {
   res.render('user/login');
@@ -52,6 +53,20 @@ const loginUser = async (req, res) => {
   const { username, password } = req.body;
   const user = await userServices.logUser(username, password);
   if (user) {
+    jwt.sign(
+      { username, greeting: 'success' },
+      'ivan',
+      { expiresIn: '1d' },
+      (err, encodedToken) => {
+        // TODO...
+        if (err) {
+          return console.log(err);
+        }
+        res.cookie('myCookie', encodedToken, { maxAge: 90000, httpOnly: true });
+        console.log(req.user);
+        res.end();
+      }
+    );
   } else {
   }
 };
