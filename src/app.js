@@ -2,6 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 const path = require('path');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 const Article = require('./models/Article');
 
