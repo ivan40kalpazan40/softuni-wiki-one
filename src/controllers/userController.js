@@ -2,7 +2,6 @@ const express = require('express');
 const authServices = require('../services/authServices');
 const generalServices = require('../services/generalServices');
 const userServices = require('../services/userServices');
-const { use } = require('./articleController');
 const router = express.Router();
 
 const renderLogin = (req, res) => {
@@ -30,7 +29,7 @@ const registerUser = (req, res) => {
           userServices
             .register(username, hashed)
             .then((user) => {
-              res.redirect('/');
+              res.redirect('/user/login');
             })
             .catch((err) => {
               console.log(`ERROR MESSAGE:: ${err.message}`);
@@ -49,7 +48,16 @@ const registerUser = (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+  const user = await userServices.logUser(username, password);
+  if (user) {
+  } else {
+  }
+};
+
 router.get('/login', renderLogin);
+router.post('/login', loginUser);
 router.get('/register', renderRegister);
 router.post('/register', registerUser);
 
