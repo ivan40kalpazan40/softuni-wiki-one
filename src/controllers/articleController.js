@@ -4,11 +4,11 @@ const articleServices = require('../services/articleServices');
 
 const getArticles = async (req, res) => {
   const articles = await articleServices.getAll();
-  res.render('articles/all-articles', { articles });
+  res.render('articles/all-articles', { articles, user: req.user });
 };
 
 const renderCreate = (req, res) => {
-  res.render('articles/create');
+  res.render('articles/create', { user: req.user });
 };
 
 const createArticle = async (req, res) => {
