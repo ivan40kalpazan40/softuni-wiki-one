@@ -22,12 +22,19 @@ const addToken = async (payload, secret, options) => {
   const token = await jwt.sign(payload, secret, options);
   return token;
 };
+const stringRandomizer = (string) => {
+  return string
+    .split('')
+    .sort(() => 0.5 - Math.random())
+    .join('');
+};
 
 const generalServices = {
   confirmPassword,
   cryptPassword,
   validPassword,
   addToken,
+  stringRandomizer
 };
 
 module.exports = generalServices;

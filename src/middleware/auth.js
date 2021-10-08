@@ -1,20 +1,20 @@
 const jwt = require('jsonwebtoken');
-const SECRET = 'ivan';
+const { SECRET } = require('../config/static');
 
-const auth = (req, res, next) => {
-  const token = req.cookies['myCookie'];
+function auth(req, res, next) {
+  let token = req.cookies['cookieUser'];
 
   if (token) {
     jwt.verify(token, SECRET, (err, decodedToken) => {
       if (err) {
-        console.log(err);
         throw err;
       }
       req.user = decodedToken;
+      next();
     });
+  } else {
+    next();
   }
-  console.log('HERE');
-  next();
-};
+}
 
 module.exports = auth;

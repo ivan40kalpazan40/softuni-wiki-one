@@ -14,10 +14,10 @@ const app = express();
 templateInit(app);
 app.use(express.urlencoded({ extended: false }));
 // STATIC FOLDER SETUP
-app.use(express.static(path.resolve(__dirname, 'public')));
 
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.use(cookieParser());
-//app.use(auth);
+app.use(auth);
 app.use(routes);
 
 mongoose

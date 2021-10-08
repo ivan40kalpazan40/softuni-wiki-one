@@ -65,7 +65,8 @@ const loginUser = async (req, res) => {
       };
 
       const token = await generalServices.addToken(payload, SECRET, options);
-      res.cookie(`cookie${userExists._id}`, token, { httpOnly: true });
+      //console.log(generalServices.stringRandomizer(userExists._id));
+      res.cookie(`cookieUser`, token, { httpOnly: true });
       res.redirect('/');
     } else {
       console.log('cannot log user');
