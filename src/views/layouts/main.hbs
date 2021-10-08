@@ -27,7 +27,7 @@
         <header>
 
           {{#if user}}
-            <span>Welcome, Pesho!</span>
+            <span>Welcome, {{user.username}}!</span>
             <a href='#'>[Logout]</a>
           {{else}}
             <a href='/user/login'>Login</a>
