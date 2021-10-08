@@ -7,11 +7,13 @@ const auth = (req, res, next) => {
   if (token) {
     jwt.verify(token, SECRET, (err, decodedToken) => {
       if (err) {
+        console.log(err);
         throw err;
       }
       req.user = decodedToken;
     });
   }
+  console.log('HERE');
   next();
 };
 

@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
 
-const confirmPassword = (password, password2) => {
-  return password === password2;
+const confirmPassword = async (password, password2) => {
+  return await (() => {
+    return password === password2;
+  })();
 };
 
 const cryptPassword = (password) => {
