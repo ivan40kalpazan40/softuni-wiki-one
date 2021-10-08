@@ -20,13 +20,20 @@ const registerUser = async (req, res) => {
   );
   const userExists = await userServices.exists(username);
   const credentialsOK = userExists === null && isConfirmed;
-  console.log(
-    `-> user: ${userExists}\n-> passwordMatch: ${isConfirmed}\n-> credentialsOK?: ${credentialsOK}`
-  );
   if (credentialsOK) {
     console.log('register user');
+    try {
+      const hash = await generalServices.cryptPassword(password);
+      const user = await userServices.register(username, hash);
+      console.log(user);
+      res.redirect('/user/login');
+    } catch (error) {
+      console.log(`ERR ::register:: ${error.message}`);
+      res.redirect('/user/register');
+    }
   } else {
     console.log('cannot register with these credentials');
+    res.redirect('/user/register');
   }
   // if (isConfirmed) {
   //   userServices.exists(username).then((user) => {

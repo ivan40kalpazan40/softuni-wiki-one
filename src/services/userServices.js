@@ -12,10 +12,5 @@ const register = async (username, password) => {
   return user;
 };
 
-const userExists = (username) => {
-
-}
-
-
 const userServices = { exists, register };
 module.exports = userServices;
