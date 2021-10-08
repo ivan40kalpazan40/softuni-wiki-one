@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const confirmPassword = async (password, password2) => {
   return await (() => {
@@ -17,10 +18,16 @@ const validPassword = async (inputPass, dbPass) => {
   return isValid;
 };
 
+const addToken = async (payload, secret, options) => {
+  const token = await jwt.sign(payload, secret, options);
+  return token;
+};
+
 const generalServices = {
   confirmPassword,
   cryptPassword,
   validPassword,
+  addToken,
 };
 
 module.exports = generalServices;

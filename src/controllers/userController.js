@@ -2,8 +2,10 @@ const express = require('express');
 const authServices = require('../services/authServices');
 const generalServices = require('../services/generalServices');
 const userServices = require('../services/userServices');
+
+const { SECRET } = require('../config/static');
+
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 
 const renderLogin = (req, res) => {
   res.render('user/login');
@@ -45,9 +47,24 @@ const loginUser = async (req, res) => {
       password,
       userExists.password
     );
-    const userFound = Boolean(userExists);
-    if (userFound && Boolean(validPassword)) {
+    if (Boolean(userExists) && Boolean(validPassword)) {
+      // LOG USER
       console.log('log user');
+      const payload = {
+        username,
+        greeting: 'Special greeting',
+        profile_data: {
+          bio: 'Lorem ipsum20',
+          job: 'accountant',
+          hobbies: ['ski', 'hiking', 'reading'],
+          articles: [],
+        },
+      };
+      const options = {
+        expiresIn: '30m',
+      };
+
+      const token = await generalServices.addToken(payload, SECRET, options);
     } else {
       console.log('cannot log user');
       throw new Error(
@@ -58,6 +75,7 @@ const loginUser = async (req, res) => {
     console.log(`ERROR ::login:: ${error}`);
     const err = new Error(error.message);
     return res.status(401).send(err.message);
+    // TODO ... handle errors in more elegant way
   }
 };
 
