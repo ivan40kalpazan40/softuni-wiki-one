@@ -39,13 +39,26 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
-  const userExists = await userServices.exists(username);
-  const validPassword = await generalServices.validPassword(
-    password,
-    userExists.password
-  );
-  console.log(validPassword);
-  console.log('POST LOGIN');
+  try {
+    const userExists = await userServices.exists(username);
+    const validPassword = await generalServices.validPassword(
+      password,
+      userExists.password
+    );
+    const userFound = Boolean(userExists);
+    if (userFound && Boolean(validPassword)) {
+      console.log('log user');
+    } else {
+      console.log('cannot log user');
+      throw new Error(
+        'Invalid user credentials. Username and password must be valid!'
+      );
+    }
+  } catch (error) {
+    console.log(`ERROR ::login:: ${error}`);
+    const err = new Error(error.message);
+    return res.status(401).send(err.message);
+  }
 };
 
 router.get('/login', renderLogin);
