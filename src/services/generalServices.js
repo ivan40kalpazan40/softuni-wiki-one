@@ -12,9 +12,15 @@ const cryptPassword = (password) => {
   });
 };
 
+const validPassword = async (inputPass, dbPass) => {
+  const isValid = await bcrypt.compare(inputPass, dbPass);
+  return isValid;
+};
+
 const generalServices = {
   confirmPassword,
   cryptPassword,
+  validPassword,
 };
 
 module.exports = generalServices;

@@ -39,9 +39,13 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
-  const hash = await generalServices.cryptPassword(password);
-  console.log(hash);
-  console.log(username, password);
+  const userExists = await userServices.exists(username);
+  const validPassword = await generalServices.validPassword(
+    password,
+    userExists.password
+  );
+  console.log(validPassword);
+  console.log('POST LOGIN');
 };
 
 router.get('/login', renderLogin);
