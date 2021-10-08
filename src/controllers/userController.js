@@ -61,12 +61,12 @@ const loginUser = async (req, res) => {
         },
       };
       const options = {
-        expiresIn: '30m',
+        expiresIn: '1h',
       };
 
       const token = await generalServices.addToken(payload, SECRET, options);
       //console.log(generalServices.stringRandomizer(userExists._id));
-      res.cookie(`cookieUser`, token, { httpOnly: true });
+      res.cookie(`cookieUser`, token, { maxAge: 3600000, httpOnly: true });
       res.redirect('/');
     } else {
       console.log('cannot log user');
@@ -82,9 +82,14 @@ const loginUser = async (req, res) => {
   }
 };
 
+const logoutUser = (req, res) => {
+  res.clearCookie('cookieUser').redirect('/user/login');
+};
+
 router.get('/login', renderLogin);
 router.post('/login', loginUser);
 router.get('/register', renderRegister);
 router.post('/register', registerUser);
+router.get('/logout', logoutUser);
 
 module.exports = router;
