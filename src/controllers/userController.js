@@ -35,38 +35,6 @@ const registerUser = async (req, res) => {
     console.log('cannot register with these credentials');
     res.redirect('/user/register');
   }
-  // if (isConfirmed) {
-  //   userServices.exists(username).then((user) => {
-  //     const isExisting = Boolean(user);
-  //     if (isExisting) {
-  //       const error = new Error(`User ${user.username} already exists!`);
-  //       console.error(error.message);
-  //       return res.redirect('/user/register');
-  //     }
-  //     // REGISTER USER HERE
-  //     generalServices
-  //       .cryptPassword(password)
-  //       .then((hashed) => {
-  //         userServices
-  //           .register(username, hashed)
-  //           .then((user) => {
-  //             res.redirect('/user/login');
-  //           })
-  //           .catch((err) => {
-  //             console.log(`ERROR MESSAGE:: ${err.message}`);
-  //             res.redirect('/user/register');
-  //           });
-  //       })
-  //       .catch((err) => {
-  //         console.log(`ERR::`, err.message);
-  //         res.redirect('/user/register');
-  //       });
-  //   });
-  // } else {
-  //   const error = new Error('Passwords shoud match!');
-  //   console.log(`ERR::: ${error.message}`);
-  //   return res.redirect('/user/register');
-  // }
 };
 
 const loginUser = async (req, res) => {
