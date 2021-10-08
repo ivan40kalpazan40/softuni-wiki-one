@@ -25,10 +25,14 @@
       </aside>
       <div id='container'>
         <header>
-          <a href='/user/login'>Login</a>
-          <a href='/user/register'>Register</a>
-          <span>Welcome, Pesho!</span>
-          <a href='#'>[Logout]</a>
+
+          {{#if user}}
+            <span>Welcome, Pesho!</span>
+            <a href='#'>[Logout]</a>
+          {{else}}
+            <a href='/user/login'>Login</a>
+            <a href='/user/register'>Register</a>
+          {{/if}}
         </header>
         {{{body}}}
         <footer>
