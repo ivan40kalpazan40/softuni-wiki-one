@@ -9,7 +9,9 @@ router.use('/', homeController);
 router.use('/articles', articleController);
 router.use('/user', userController);
 router.use('*', (req, res) => {
-    res.send('Not Found at all');
-  });
+  res
+    .status(404)
+    .render('404', { message: 'The requested page does not exist' });
+});
 
 module.exports = router;
