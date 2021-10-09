@@ -1,8 +1,8 @@
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
 
 const exists = async (username) => {
   const user = await User.findOne({ username }).lean();
+  
   return user;
 };
 

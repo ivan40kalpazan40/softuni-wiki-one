@@ -1,0 +1,12 @@
+<main>
+  <h1>ERROR 404</h1>
+  {{#if message}}
+    <p>{{message}}</p>
+  {{else}}
+    <p>Could not login user with provided credentials</p>
+  {{/if}}
+
+  <p>Please return to
+    <a href='/user/login'>login</a>
+    and try with registered user credentials.</p>
+</main>

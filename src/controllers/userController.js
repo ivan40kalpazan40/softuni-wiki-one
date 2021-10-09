@@ -77,7 +77,11 @@ const loginUser = async (req, res) => {
   } catch (error) {
     console.log(`ERROR ::login:: ${error}`);
     const err = new Error(error.message);
-    return res.status(401).send(err.message);
+    if (err.message.includes('credentials')) {
+      return res.status(401).render('404', { message: err.message });
+    }
+    return res.status(401).render('404');
+
     // TODO ... handle errors in more elegant way
   }
 };
