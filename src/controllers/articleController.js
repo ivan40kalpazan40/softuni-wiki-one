@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const articleServices = require('../services/articleServices');
+const userServices = require('../services/userServices');
+const { isAuth } = require('../middleware/guards');
+const User = require('../models/User');
 
 const getArticles = async (req, res) => {
   const articles = await articleServices.getAll();
@@ -26,7 +29,7 @@ const createArticle = async (req, res) => {
 const renderArticle = async (req, res) => {
   const articleId = req.params.id;
   const article = await articleServices.getArticle(articleId);
-  res.render('articles/article', { article, user:req.user });
+  res.render('articles/article', { article, user: req.user });
 };
 const renderEdit = async (req, res) => {
   const articleId = req.params.id;
@@ -53,11 +56,11 @@ const deleteArticle = async (req, res) => {
 };
 
 router.get('/', getArticles);
-router.get('/create', renderCreate);
-router.post('/create', createArticle);
+router.get('/create', isAuth, renderCreate);
+router.post('/create', isAuth, createArticle);
 router.get('/article/:id', renderArticle);
-router.get('/article/edit/:id', renderEdit);
-router.post('/article/edit/:id', editArticle);
-router.get('/article/delete/:id', deleteArticle);
+router.get('/article/edit/:id', isAuth, renderEdit);
+router.post('/article/edit/:id', isAuth, editArticle);
+router.get('/article/delete/:id', isAuth, deleteArticle);
 
 module.exports = router;
