@@ -2,10 +2,12 @@
   <h1>Welcome to SoftUni Wiki!</h1>
   <div class='spacer'>
     <h2>{{article.title}}
-      <div class='controls'>
-        <a href='/articles/article/edit/{{article._id}}'>[edit]</a>
-        <a href='/articles/article/delete/{{article._id}}'>[delete]</a>
-      </div>
+      {{#if user}}
+        <div class='controls'>
+          <a href='/articles/article/edit/{{article._id}}'>[edit]</a>
+          <a href='/articles/article/delete/{{article._id}}'>[delete]</a>
+        </div>
+      {{/if}}
     </h2>
     <article>
       {{article.description}}

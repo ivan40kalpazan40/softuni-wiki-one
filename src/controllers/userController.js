@@ -1,8 +1,7 @@
 const express = require('express');
-const authServices = require('../services/authServices');
 const generalServices = require('../services/generalServices');
 const userServices = require('../services/userServices');
-
+const { isGuest, isAuth } = require('../middleware/guards');
 const { SECRET } = require('../config/static');
 
 const router = express.Router();
@@ -90,10 +89,10 @@ const logoutUser = (req, res) => {
   res.clearCookie('cookieUser').redirect('/user/login');
 };
 
-router.get('/login', renderLogin);
-router.post('/login', loginUser);
-router.get('/register', renderRegister);
-router.post('/register', registerUser);
-router.get('/logout', logoutUser);
+router.get('/login', isGuest, renderLogin);
+router.post('/login', isGuest, loginUser);
+router.get('/register', isGuest, renderRegister);
+router.post('/register', isGuest, registerUser);
+router.get('/logout', isAuth, logoutUser);
 
 module.exports = router;

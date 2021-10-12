@@ -26,7 +26,7 @@ const createArticle = async (req, res) => {
 const renderArticle = async (req, res) => {
   const articleId = req.params.id;
   const article = await articleServices.getArticle(articleId);
-  res.render('articles/article', { article });
+  res.render('articles/article', { article, user:req.user });
 };
 const renderEdit = async (req, res) => {
   const articleId = req.params.id;
